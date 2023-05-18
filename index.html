@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup Form</title>
+</head>
+<body>
+  <h1>Signup Form</h1>
+ 
+<form name="signupForm" onsubmit="event.preventDefault()">
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <br>
+    <button type="submit" onclick="validate()">Sign Up</button>
+  </form>
+
+  <script>
+async function postData(url = "https://reqres.in/api/login", data = {}) {
+  const response = await fetch(url, {
+    method: "POST", 
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+async function validate(){
+let a =document.forms["signupForm"]["email"].value;
+let b=document.forms["signupForm"]["password"].value;
+await postData("https://reqres.in/api/login",{email:a,password:b}).then((data)=>{
+  console.log(data);
+let c="YOUR TOKEN IS";
+window.alert(c+(data.token));
+}).catch((err)=>{
+  let d="Error!"
+  window.alert(d+err);
+});
+}
+
+  </script>
+</body>
+</html>
